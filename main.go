@@ -81,7 +81,7 @@ func main() {
 :25:` + iban + `EUR
 :28C:00000
 :60F:D` + dateCode[2] + dateCode[1] + dateCode[0] + `EUR0,00
-:61:` + dateCode[2] + dateCode[1] + dateCode[0] + `1231D` + v[2] + `NTRFNONREF//` + dateCode[2] + dateCode[1] + dateCode[0] + `00000001
+:61:` + dateCode[2] + dateCode[1] + dateCode[0] + `D` + v[2] + `NTRFNONREF//` + dateCode[2] + dateCode[1] + dateCode[0] + `00000001
 /TRCD/00100/
 :86:/CNTP///` + v[3] + `///REMI/USTD//AMEX ` + v[1] + ` ` + v[3] + ` ` + v[4] + `/
 :62F:D` + dateCode[2] + dateCode[1] + dateCode[0] + `EUR` + v[2] + `
