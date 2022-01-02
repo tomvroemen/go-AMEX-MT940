@@ -26,8 +26,11 @@ func main() {
 
 	csvfile, err := os.Open(usr.HomeDir + "/Downloads/ofx.csv")
 	if err != nil {
-		fmt.Println("Problems opening the file", err)
-		return
+		csvfile, err = os.Open(usr.HomeDir + "/Downloads/activity.csv")
+		if err != nil {
+			fmt.Println("Problems opening the file", err)
+			return
+		}
 	}
 
 	// Parse
@@ -47,11 +50,12 @@ func main() {
 			fmt.Println("incomplete line")
 			continue
 		}
+		line[0] = strings.Replace(line[0], "/", "-", -1)
 		entryKey := strings.Split(line[0], "-")[2] + "-" + strings.Split(line[0], "-")[1] + "-" + strings.Split(line[0], "-")[0] + "-" + line[1]
 
 		keys = append(keys, entryKey)
 
-		entries[entryKey] = [5]string{line[0], line[1], line[2], line[3], line[5]}
+		entries[entryKey] = [5]string{line[0], line[1], line[2], line[3], line[4]}
 	}
 
 	sort.Strings(keys)
@@ -83,12 +87,12 @@ func main() {
 :60F:D` + dateCode[2] + dateCode[1] + dateCode[0] + `EUR0,00
 :61:` + dateCode[2] + dateCode[1] + dateCode[0] + `D` + v[2] + `NTRFNONREF//` + dateCode[2] + dateCode[1] + dateCode[0] + `00000001
 /TRCD/00100/
-:86:/CNTP///` + v[3] + `///REMI/USTD//AMEX ` + v[1] + ` ` + v[3] + ` ` + v[4] + `/
-:62F:D` + dateCode[2] + dateCode[1] + dateCode[0] + `EUR` + v[2] + `
-:64:D` + dateCode[2] + dateCode[1] + dateCode[0] + `EUR` + v[2] + `
-:65:D` + dateCode[2] + dateCode[1] + dateCode[0] + `EUR` + v[2] + `
-:65:D` + dateCode[2] + dateCode[1] + dateCode[0] + `EUR` + v[2] + `
-:86:/SUM/1/0/` + v[2] + `/0,00/
+:86:/CNTP///` + v[3] + `///REMI/USTD//AMEX ` + v[1] + ` ` + v[3] + `/
+:62F:D` + dateCode[2] + dateCode[1] + dateCode[0] + `EUR` + v[4] + `
+:64:D` + dateCode[2] + dateCode[1] + dateCode[0] + `EUR` + v[4] + `
+:65:D` + dateCode[2] + dateCode[1] + dateCode[0] + `EUR` + v[4] + `
+:65:D` + dateCode[2] + dateCode[1] + dateCode[0] + `EUR` + v[4] + `
+:86:/SUM/1/0/` + v[4] + `/0,00/
 -}
 			`
 		}
